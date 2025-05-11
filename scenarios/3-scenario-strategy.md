@@ -25,6 +25,7 @@ We need a flexible combat system that allows us to quickly adjust our defensive 
    - `ArcherStrategy` (effective against Pikemen)
    - `PikemanStrategy` (effective against Cavalry)
    - `CavalryStrategy` (effective against Archers)
+   - The strategies should have a method to send a unit *as return*, for a given enemy unit *as parameter*
 
 3. Implement a `Commander` class that:
    - Can deploy any unit strategy
@@ -32,7 +33,8 @@ We need a flexible combat system that allows us to quickly adjust our defensive 
 
 ## Expected Outcome
 
-TODO
+- the commander should be able to send the counter unit of the arriving enemy unit
+- the code of the commander, once written it should not be updated (Open/Closed Principle)
 
 ## Hints
 
@@ -40,7 +42,9 @@ TODO
 <summary>Hint 1 - Combat Strategy Interface</summary>
 <code>
 interface CombatStrategy {
-    double attack(String enemyType);
+   public boolean isCounterOf(Unit enemyUnit);
+   public Unit sendUnit();
+   
 }
 </code>
 </details>
@@ -49,31 +53,17 @@ interface CombatStrategy {
 <summary>Hint 2 - Unit Strategy Implementation</summary>
 <code>
 class ArcherStrategy implements CombatStrategy {
-    @Override
-    public double attack(String enemyType) {
-        return enemyType.equals("Pikeman") ? 2.0 : 0.5;
-    }
+   @Override
+   public boolean isCounterOf(Unit expectedEnemyUnit) {
+      return expectedEnemyUnit.getClass() instanceof Pikeman.class;
+   }
+
+   @Override
+   public Unit sendUnit() {
+      return new Archer();
+   }
 }
 </code>
-</details>
-
-<details>
-<summary>Hint 3 - Defense Commander</summary>
-<code>
-class DefenseCommander {
-    private CombatStrategy strategy;
-
-    public void setStrategy(CombatStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public double defendAgainst(String enemyType) {
-        return strategy.attack(enemyType);
-    }
-
-}
-</code>
-
 </details>
 
 May your tactical choices bring victory, noble ruler.

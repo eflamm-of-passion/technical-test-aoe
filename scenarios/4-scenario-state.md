@@ -24,7 +24,7 @@ A hunter's success depends on understanding their prey. A deer passes through di
    - `CarcassState` (fresh kill, meat can be collected)
    - `DepletedState` (no resources remain, cannot interact)
 
-3. Create a `Prey` class that:
+3. Create a `Deer` class that:
    - Maintains its current state
    - Tracks remaining resources
    - Changes states based on hunter interactions
@@ -43,7 +43,7 @@ Your solution should:
 <details>
 <summary>Hint 1 - State Interface</summary>
 <code>
-public interface PreyState {
+public interface DeerState {
     boolean hunt();
     int collect();
     boolean canCollect();
@@ -54,7 +54,7 @@ public interface PreyState {
 <details>
 <summary>Hint 2 - Concrete State</summary>
 <code>
-public class CarcassState implements PreyState {
+public class CarcassState implements DeerState {
     private int remainingMeat = 100;
 
     @Override
@@ -62,7 +62,7 @@ public class CarcassState implements PreyState {
         if (remainingMeat > 0) {
             remainingMeat -= 25;
             if (remainingMeat <= 0) {
-                prey.setState(new DepletedState());
+                deer.setState(new DepletedState());
             }
             return 25;
         }
@@ -75,16 +75,16 @@ public class CarcassState implements PreyState {
 </details>
 
 <details>
-<summary>Hint 3 - Prey Class</summary>
+<summary>Hint 3 - Deer Class</summary>
 <code>
-public class Prey {
-    private PreyState state;
+public class Deer {
+    private DeerState state;
 
-    public void setState(PreyState state) {
+    public void setState(DeerState state) {
         this.state = state;
     }
 
-    public int collect() {
+    public int collectFood() {
         return state.canCollect() ? state.collect() : 0;
     }
 
