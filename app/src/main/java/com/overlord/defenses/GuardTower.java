@@ -1,10 +1,10 @@
 package com.overlord.defenses;
 
 public class GuardTower {
-    private Ballista weapon;
+    private Weapon weapon;
 
-    public GuardTower() {
-        this.weapon = new Ballista();
+    public GuardTower(Weapon weapon) {
+        this.weapon = weapon;
     }
 
     /**
@@ -14,5 +14,7 @@ public class GuardTower {
         return this.weapon.fire();
     }
 
-    // TODO implement modular weapon system
+    public void upgradeWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
 }

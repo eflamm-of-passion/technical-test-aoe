@@ -1,9 +1,9 @@
 package com.overlord.defenses;
 
-public class Ballista implements Weapon {
+public class Cannon implements Weapon {
 
     @Override
     public String fire() {
-        return "bolt fired";
+        return "cannonball fired";
     }
 }

@@ -12,14 +12,18 @@ class GuardTowerTest {
         Ballista ballista = new Ballista();
 
         // when
-        // TODO consctruct your tower with a ballista
-        GuardTower tower = new GuardTower();
-        // TODO upgrade your tower with a cannon
-        // TODO fire some deadly projectile
-        String actualProjectile = "";
+        // consctruct your tower with a ballista
+        GuardTower tower = new GuardTower(ballista);
+
+        // upgrade your tower with a cannon
+        Cannon cannon = new Cannon();
+        tower.upgradeWeapon(cannon);
+
+        // fire some deadly projectile
+        String actualProjectile = tower.fire();
 
         // then
-        // TODO check that a cannonball has been fired
+        // check that a cannonball has been fired
         assertEquals("cannonball fired", actualProjectile);
     }
 
