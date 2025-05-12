@@ -1,16 +1,13 @@
 package com.overlord.combat;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class Commander {
 
-    Set<CombatStrategy> knownCombatStrategies = new HashSet<>();
+    Set<CombatStrategy> knownCombatStrategies;
 
-    public Commander() {
-        this.knownCombatStrategies.add(new ArcherStrategy());
-        this.knownCombatStrategies.add(new PikemanStrategy());
-        this.knownCombatStrategies.add(new HorsemanStrategy());
+    public Commander(Set<CombatStrategy> knownCombatStrategies) {
+        this.knownCombatStrategies = knownCombatStrategies;
     }
 
     public Unit sendUnitAgainst(Unit expectedEnemy) {

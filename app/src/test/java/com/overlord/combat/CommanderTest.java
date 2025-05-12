@@ -4,6 +4,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +24,11 @@ class CommanderTest {
     @MethodSource("provideEnemyAndCounterUnits")
     void should_counter_enemy_unit_with_proper_unit(Unit enemyUnit, Unit expectedCounterUnit) {
         // given
-        Commander yourCommander = new Commander();
+        Set<CombatStrategy> knownCombatStrategies = new HashSet<>();
+        knownCombatStrategies.add(new ArcherStrategy());
+        knownCombatStrategies.add(new PikemanStrategy());
+        knownCombatStrategies.add(new HorsemanStrategy());
+        Commander yourCommander = new Commander(knownCombatStrategies);
 
         // when
         Unit counterUnit = yourCommander.sendUnitAgainst(enemyUnit);
