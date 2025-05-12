@@ -24,10 +24,11 @@ A hunter's success depends on understanding their prey. A deer passes through di
    - `CarcassState` (fresh kill, meat can be collected)
    - `DepletedState` (no resources remain, cannot interact)
 
-3. Create a `Deer` class that:
+3. Create a [Deer](../app/src/main/java/com/overlord/wildlife/Deer.java) class that:
    - Maintains its current state
    - Tracks remaining resources
    - Changes states based on hunter interactions
+4. Verify the behavior in the [DeerTest](../app/src/test/java/com/overlord/wildlife/DeerTest.java) class
 
 ## Expected Outcome
 
@@ -95,4 +96,5 @@ public class Deer {
 
 May your hunters be patient and your harvests bountiful, noble ruler.
 
-_TODO add the explanation about the State Design Pattern_
+## What you learned
+In this scenario, you applied the State Design Pattern, which allows an object to alter its behavior when its internal state changes. By encapsulating the behavior of the Deer in distinct states (WildState, CarcassState, DepletedState), you ensured that each state handles specific actions and transitions. This approach promotes adherence to the Single Responsibility Principle, as each state class is responsible for its own behavior. It also enhances maintainability and scalability by isolating state-specific logic, making it easier to extend or modify the system.
