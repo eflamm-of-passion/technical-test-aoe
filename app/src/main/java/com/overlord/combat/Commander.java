@@ -1,15 +1,30 @@
 package com.overlord.combat;
 
-public class Commander {
+import java.util.List;
 
-    public Unit sendUnitAgainst(Unit expectedEnemy) {
-        // TODO use the strategy to send the counter unit
-        chooseStrategyAgainst(expectedEnemy);
-        return new Pikeman(); // FIXME
+/**
+ * The Strategy design patterns allow us to add strategy without modifying the Commander class
+ * We can have an appropriate strategy at runtime depending on the enemy
+ */
+
+public class Commander {
+    public Unit sendUnitAgainst(Unit expectedEnemyUnit) throws Exception {// TODO use the strategy to send the counter unit
+        return chooseStrategyAgainst(expectedEnemyUnit);
     }
 
-    private void chooseStrategyAgainst(Unit expectedEnemy) {
-        // TODO implement the three possible strategies using the strategy design pattern
-        // TODO you should return the proper strategy to send
+    private List<CombatStrategy> strategies = List.of(
+            new ArcherStrategy(),
+            new CavalryStrategy(),
+            new PikemanStrategy()
+    );
+
+    private Unit chooseStrategyAgainst(Unit expectedEnemyUnit) throws Exception {
+        for (CombatStrategy strategy : strategies) {
+            if (strategy.isCounterOf(expectedEnemyUnit)) {
+                return strategy.sendUnit();
+            }
+        }
+
+        throw new Exception("There is no strategy for this unit !");
     }
 }
