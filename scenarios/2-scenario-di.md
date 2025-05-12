@@ -8,6 +8,8 @@ Your military engineers have designed a modular guard tower system. The initial 
 
 The current design requires rebuilding entire towers for upgrades. Your engineers suggest making the towers modular, allowing weapon systems to be swapped without reconstructing the entire structure.
 
+May your defenses stand strong, noble ruler.
+
 ## Your Task
 
 1. Create a modular guard tower system where:
@@ -15,10 +17,11 @@ The current design requires rebuilding entire towers for upgrades. Your engineer
    - Weapons can be changed without modifying the tower structure
    - The tower delegates attack commands to its equipped weapon
 2. Implement:
-   - A `GuardTower` class that can hold different weapons
-   - A `Ballista` as the initial weapon
-   - A `Cannon` as the upgrade option
+   - A [GuardTower](../app/src/main/java/com/overlord/defenses/GuardTower.java) class that can hold different weapons
+   - A [Ballista](../app/src/main/java/com/overlord/defenses/Ballista.java) as the initial weapon
+   - A Cannon as the upgrade option
 3. Allow towers to be constructed with either weapon and support weapon replacement
+4. Verify the behavior in the [GuardTowerTest](../app/src/test/java/com/overlord/defenses/GuardTowerTest.java) class
 
 ## Expected Outcome
 
@@ -62,6 +65,9 @@ void upgradeWeapon(Weapon newWeapon) {
 </code>
 </details>
 
-May your defenses stand strong, noble ruler.
+## What you learned
+In this scenario, you applied the Dependency Injection (DI) principle, which promotes loose coupling between components. DI allows you to inject dependencies (like weapons) into a class (like GuardTower) rather than hardcoding them. This makes your code more flexible, testable, and easier to extend. By designing a modular guard tower system, you ensured that new weapons can be added or swapped without modifying the tower's code, adhering to the Open/Closed Principle.
 
-_TODO add the explanation about the Dependency Injection_
+## Next scenario
+
+[Third Scenario - Strategic Unit Counters](./3-scenario-strategy.md)
