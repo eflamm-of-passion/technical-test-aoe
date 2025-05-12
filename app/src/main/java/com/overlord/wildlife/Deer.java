@@ -1,25 +1,22 @@
 package com.overlord.wildlife;
 
 public class Deer {
-    private String state;
-    private int remaingAmountOfFood;
+    private DeerState state;
 
     public Deer() {
-        this.state = "living";
-        this.remaingAmountOfFood = 100; // FIXME probably should be in the state
+        this.state = new WildState(this);
+    }
+
+    protected void nextStage() {
+        this.state = this.state.nextStage();
     }
 
     public void shoot() {
-        // TODO if the deer is living, then change state to carcass
+        this.state.shoot();
+        // note : we could throw an exception if the deer is not in WildState
     }
 
     public int collectFood() {
-        // TODO collect only when deer is in carcass state
-        // TODO swap to depleted state when there is no remaining food
-        int amountCollected = 25;
-        this.remaingAmountOfFood -= amountCollected;
-        return amountCollected;
+        return this.state.collect();
     }
-
-    // TODO implement the states of the Deer : living, carcass, depleted
 }
