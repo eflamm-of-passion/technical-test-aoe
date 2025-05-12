@@ -13,14 +13,14 @@ class CommanderTest {
     private static Stream<Arguments> provideEnemyAndCounterUnits() {
         return Stream.of(
                 Arguments.of(new Pikeman(), new Archer()),
-                Arguments.of(new Horseman(), new Pikeman()),
-                Arguments.of(new Archer(), new Horseman())
+                Arguments.of(new Cavalry(), new Pikeman()),
+                Arguments.of(new Archer(), new Cavalry())
         );
     }
 
     @ParameterizedTest(name = "When enemy is {0}, commander should send {1}")
     @MethodSource("provideEnemyAndCounterUnits")
-    void should_counter_enemy_unit_with_proper_unit(Unit enemyUnit, Unit expectedCounterUnit) {
+    void should_counter_enemy_unit_with_proper_unit(Unit enemyUnit, Unit expectedCounterUnit) throws Exception {
         // given
         Commander yourCommander = new Commander();
 

@@ -3,32 +3,24 @@ package com.overlord.villagers;
 /**
  * It's one of your subject, it is here to work for you my lady/lord
  */
-public class Villager {
+
+/**
+ * A Class should have a single, one and only, responsibility
+ * "Do one thing and do it well"
+ * This means the class should have only one reason to change,
+ * ex : if the way of hunting changes, then only Hunter should change, not all the villagers.
+ *
+ * This separation improves maintability, readability, and testability
+ */
+
+public abstract class Villager {
 
     public Villager() {}
-
-    /*
-      TODO
-      That's great your villager is a jack of all trades, but maybe
-      it should focus on one job at a time.
-     */
 
     /**
      * @return what it is doing
      */
     public String moveTo() {
         return "Going there right now";
-    }
-
-    public String cutWood() {
-        return "Cutting some wood";
-    }
-
-    public String gatherFood() {
-        return "Hunting some deers";
-    }
-
-    public String buildSomething() {
-        return "Building a house";
     }
 }
