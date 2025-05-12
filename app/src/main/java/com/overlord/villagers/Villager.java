@@ -3,7 +3,7 @@ package com.overlord.villagers;
 /**
  * It's one of your subject, it is here to work for you my lady/lord
  */
-public class Villager {
+public abstract class Villager { // note : the villager could not be mandatory if there is a reason to exist without being a job right away
 
     public Villager() {}
 
@@ -20,15 +20,4 @@ public class Villager {
         return "Going there right now";
     }
 
-    public String cutWood() {
-        return "Cutting some wood";
-    }
-
-    public String gatherFood() {
-        return "Hunting some deers";
-    }
-
-    public String buildSomething() {
-        return "Building a house";
-    }
 }
