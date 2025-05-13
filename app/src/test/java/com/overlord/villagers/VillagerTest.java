@@ -44,6 +44,9 @@ class VillagerTest {
         assertEquals(3, settlement.size());
 
         // check that the settlement has a villager at each job (use instanceof)
+        assertTrue(settlement.stream().anyMatch(villager -> villager instanceof LumberJack));
+        assertTrue(settlement.stream().anyMatch(villager -> villager instanceof Hunter));
+        assertTrue(settlement.stream().anyMatch(villager -> villager instanceof Builder));
 
         assertEquals("Going there right now", moving);
         assertEquals("Cutting some wood", cutting);
