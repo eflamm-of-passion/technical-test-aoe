@@ -2,29 +2,20 @@ package com.overlord.wildlife;
 
 public class WildState implements DeerState {
 
-    private final Deer deer;
+    public WildState() {}
 
-    public WildState(Deer deer) {
-        this.deer = deer;
+    @Override
+    public DeerState shoot() {
+        return this.nextStage();
     }
 
     @Override
-    public void shoot() {
-        this.deer.nextStage();
+    public DeerStateAndFoodCollected collect() {
+        return new DeerStateAndFoodCollected(this, 0);
     }
 
-    @Override
-    public int collect() {
-        return 0;
-    }
 
-    @Override
-    public boolean canCollect() {
-        return false;
-    }
-
-    @Override
-    public DeerState nextStage() {
-        return new CarcassState(this.deer);
+    private DeerState nextStage() {
+        return new CarcassState();
     }
 }

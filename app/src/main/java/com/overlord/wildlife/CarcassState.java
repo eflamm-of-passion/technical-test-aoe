@@ -2,45 +2,50 @@ package com.overlord.wildlife;
 
 public class CarcassState implements DeerState {
 
-    private Deer deer;
     private int remainingFood;
 
-    public CarcassState(Deer deer) {
-        this.deer = deer;
+    public CarcassState() {
         this.remainingFood = 100;
     }
 
 
     @Override
-    public void shoot() {}
+    public DeerState shoot() {
+        return this;
+    }
 
     @Override
-    public int collect() {
+    public DeerStateAndFoodCollected collect() {
         int collectedFood;
         if(canCollect()) {
-            collectedFood = 25;
-            this.remainingFood -= collectedFood;
+            collectedFood = cutASteak();
         } else {
             // note : or it could throw an exception
-            collectedFood = 0;
+            collectedFood = doNothing();
         }
-        whenLastPiece();
+        DeerState updatedState = whenLastPiece();
+        return new DeerStateAndFoodCollected(updatedState, collectedFood);
+    }
+
+    private int cutASteak() {
+        int collectedFood = 25;
+        this.remainingFood -= collectedFood;
         return collectedFood;
     }
 
-    private void whenLastPiece() {
-        if(this.remainingFood == 0) {
-            this.deer.nextStage();
-        }
+    private int doNothing() {
+        return 0;
     }
 
-    @Override
-    public boolean canCollect() {
+    private DeerState whenLastPiece() {
+        return this.remainingFood == 0 ? this.nextStage() : this;
+    }
+
+    private boolean canCollect() {
         return this.remainingFood >= 25;
     }
 
-    @Override
-    public DeerState nextStage() {
+    private DeerState nextStage() {
         return new DepletedState();
     }
 }

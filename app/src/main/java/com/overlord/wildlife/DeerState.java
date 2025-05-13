@@ -1,8 +1,13 @@
 package com.overlord.wildlife;
 
 public interface DeerState {
-    void shoot();
-    int collect();
-    boolean canCollect();
-    DeerState nextStage();
+    /**
+     * @return the same state, or the next state to be updated by the Deer
+     */
+    DeerState shoot();
+
+    /**
+     * @return the same state, or the next state to be updated by the Deer, and the amount of food collected
+     */
+    DeerStateAndFoodCollected collect();
 }

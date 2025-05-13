@@ -3,20 +3,16 @@ package com.overlord.wildlife;
 public class DepletedState implements DeerState {
 
     @Override
-    public void shoot() {}
-
-    @Override
-    public int collect() {
-        return 0;
+    public DeerState shoot() {
+        return this;
     }
 
     @Override
-    public boolean canCollect() {
-        return false;
+    public DeerStateAndFoodCollected collect() {
+        return new DeerStateAndFoodCollected(this, 0);
     }
 
-    @Override
-    public DeerState nextStage() {
-        return new DepletedState(); // note : or throw an exception
+    private DeerState nextStage() {
+        return this; // note : or throw an exception
     }
 }
