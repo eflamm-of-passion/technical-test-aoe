@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class VillagerTest {
 
@@ -41,7 +42,9 @@ class VillagerTest {
 
         // then
         assertEquals(3, settlement.size());
-        // check the job of each villager (use instanceof)
+
+        // check that the settlement has a villager at each job (use instanceof)
+
         assertEquals("Going there right now", moving);
         assertEquals("Cutting some wood", cutting);
         assertEquals("Hunting some deers", hunting);

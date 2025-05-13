@@ -13,7 +13,7 @@ May your defenses stand strong, noble ruler.
 ## Your Task
 
 1. Create a modular guard tower system where:
-   - The tower and its weapon system are separate components (would it be some kind of _composition_)
+   - The tower and its weapon system are separate components 
    - Weapons can be changed without modifying the tower structure
    - The tower delegates attack commands to its equipped weapon
 2. Implement:
@@ -37,7 +37,7 @@ May your defenses stand strong, noble ruler.
 Consider creating a common interface for all weapons:
 <code>
 interface Weapon {
-    void attack(String target);
+    String fire();
 }
 </code>
 </details>

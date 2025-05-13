@@ -7,8 +7,8 @@ Noble Lady or Lord,
 Our scouts report incoming attacks from a rival kingdom! Each wave brings different units, and we must respond with the appropriate counter-units. As every commander knows:
 
 - Archers defeat Pikemen
-- Pikemen defeat Cavalry
-- Cavalry defeat Archers
+- Pikemen defeat Horseman
+- Horseman defeat Archers
 
 We need a flexible combat system that allows us to quickly adjust our defensive **strategy** based on the approaching threat.
 
@@ -25,8 +25,8 @@ May your tactical choices bring victory, noble ruler.
 2. Implement these unit strategies:
 
    - `ArcherStrategy` (effective against Pikemen)
-   - `PikemanStrategy` (effective against Cavalry)
-   - `CavalryStrategy` (effective against Archers)
+   - `PikemanStrategy` (effective against Horseman)
+   - `HorsemanStrategy` (effective against Archers)
    - The strategies should have a method to send a unit *as return*, for a given enemy unit *as parameter*
 
 3. Implement a [Commander](../app/src/main/java/com/overlord/combat/Commander.java) class that:
@@ -45,7 +45,7 @@ May your tactical choices bring victory, noble ruler.
 <summary>Hint 1 - Combat Strategy Interface</summary>
 <code>
 interface CombatStrategy {
-   public boolean isCounterOf(Unit enemyUnit);
+   public boolean isEffectiveAgainst(Unit enemyUnit);
    public Unit sendUnit();
    
 }
@@ -57,8 +57,8 @@ interface CombatStrategy {
 <code>
 class ArcherStrategy implements CombatStrategy {
    @Override
-   public boolean isCounterOf(Unit expectedEnemyUnit) {
-      return expectedEnemyUnit.getClass() instanceof Pikeman.class;
+   public boolean isEffectiveAgainst(Unit expectedEnemyUnit) {
+      return expectedEnemyUnit instanceof Pikeman.class;
    }
 
    @Override
@@ -69,9 +69,27 @@ class ArcherStrategy implements CombatStrategy {
 </code>
 </details>
 
+<details>
+<summary>Hint 3 - Finding the Right Strategy</summary>
+<code>
+List<CombatStrategy> strategies = List.of(
+    new ArcherStrategy(),
+    new PikemanStrategy(),
+    new HorsemanStrategy()
+);
+
+CombatStrategy findStrategyFor(Unit enemyUnit) {
+return strategies.stream()
+   .filter(strategy -> strategy.isEffectiveAgainst(enemyUnit))
+   .findFirst()
+   .orElseThrow(() -> new IllegalStateException("No counter found"));
+}
+</code>
+</details>
+
 ## What you learned
 
-In this scenario, you applied the Strategy Design Pattern, which enables selecting an algorithm's behavior at runtime. By encapsulating unit counter logic into separate strategies (ArcherStrategy, PikemanStrategy, CavalryStrategy), you achieved flexibility and adherence to the Open/Closed Principle. This allows the Commander class to deploy counter-units dynamically without modifying its code when new strategies are introduced. This approach promotes maintainability and scalability in your combat system.
+In this scenario, you applied the Strategy Design Pattern, which enables selecting an algorithm's behavior at runtime. By encapsulating unit counter logic into separate strategies (ArcherStrategy, PikemanStrategy, HorsemanStrategy), you achieved flexibility and adherence to the Open/Closed Principle. This allows the Commander class to deploy counter-units dynamically without modifying its code when new strategies are introduced. This approach promotes maintainability and scalability in your combat system.
 
 ## Next scenario
 
