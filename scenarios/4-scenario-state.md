@@ -10,6 +10,8 @@ A hunter's success depends on understanding their prey. A deer passes through di
 - Harvested (ready for meat collection)
 - Depleted (no resources remain)
 
+May your hunters be patient and your harvests bountiful, noble ruler.
+
 ## Your Task
 
 1. Create a prey state system where:
@@ -45,7 +47,7 @@ Your solution should:
 <summary>Hint 1 - State Interface</summary>
 <code>
 public interface DeerState {
-    boolean hunt();
+    void hunt();
     int collect();
     boolean canCollect();
 }
@@ -56,7 +58,8 @@ public interface DeerState {
 <summary>Hint 2 - Concrete State</summary>
 <code>
 public class CarcassState implements DeerState {
-    private int remainingMeat = 100;
+   private Deer deer; 
+   private int remainingMeat = 100;
 
     @Override
     public int collect() {
@@ -81,7 +84,7 @@ public class CarcassState implements DeerState {
 public class Deer {
     private DeerState state;
 
-    public void setState(DeerState state) {
+    protected void setState(DeerState state) {
         this.state = state;
     }
 
@@ -94,7 +97,10 @@ public class Deer {
 
 </details>
 
-May your hunters be patient and your harvests bountiful, noble ruler.
+<details>
+<summary>Hint 4 - Advanced implementation</summary>
+In the previous examples we passed the Deer instance inside the state, for the state to be able to go to the next state after the action. But the fact that the child (DeerState) manipulates the parent (Deer) is not a good practice, but ok in this context. To fix this, the state could return a state at each action, so the Deer can update its state at every action, without knowing when the state chooses to go to the next state. 
+</details>
 
 ## What you learned
 In this scenario, you applied the State Design Pattern, which allows an object to alter its behavior when its internal state changes. By encapsulating the behavior of the Deer in distinct states (WildState, CarcassState, DepletedState), you ensured that each state handles specific actions and transitions. This approach promotes adherence to the Single Responsibility Principle, as each state class is responsible for its own behavior. It also enhances maintainability and scalability by isolating state-specific logic, making it easier to extend or modify the system.

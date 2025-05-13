@@ -2,10 +2,12 @@ package com.overlord.villagers;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class VillagerTest {
 
@@ -16,7 +18,7 @@ class VillagerTest {
     @Test
     public void time_to_build_your_economy() {
         // given
-        List<Villager> settlement = Collections.emptyList();
+        List<Villager> settlement = new ArrayList<>();
 
         // when
         // TODO create a hunter, a lumberjack and a builder
@@ -30,7 +32,9 @@ class VillagerTest {
 
         // then
         assertEquals(3, settlement.size());
-        // TODO check the job of each villager (use instanceof)
+
+        // TODO check that the settlement has a villager at each job (use instanceof)
+
         assertEquals("Going there right now", moving);
         assertEquals("Cutting some wood", cutting);
         assertEquals("Hunting some deers", hunting);
