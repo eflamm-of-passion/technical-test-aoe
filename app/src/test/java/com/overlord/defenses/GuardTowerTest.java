@@ -1,26 +1,29 @@
 package com.overlord.defenses;
 
+import com.overlord.defenses.weapons.Ballista;
+import com.overlord.defenses.weapons.Cannon;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GuardTowerTest {
-
     @Test
-    public void build_your_defenses() {
+    void build_your_defenses() {
         // given
         Ballista ballista = new Ballista();
+        String target = "vile goblin";
 
         // when
-        // TODO consctruct your tower with a ballista
-        GuardTower tower = new GuardTower();
-        // TODO upgrade your tower with a cannon
-        // TODO fire some deadly projectile
-        String actualProjectile = "";
+        // construct your tower with a ballista
+        GuardTower tower = new GuardTower(ballista);
+        // upgrade your tower with a cannon
+        tower.switchWeapon(new Cannon());
+
+        // fire some deadly projectile
+        String actualProjectile = tower.fire(target);
 
         // then
-        // TODO check that a cannonball has been fired
-        assertEquals("cannonball fired", actualProjectile);
+        // check that a cannonball has been fired
+        assertEquals(String.format("cannonball fired at %s", target), actualProjectile);
     }
-
 }
