@@ -1,25 +1,50 @@
 package com.overlord.wildlife;
 
+import com.overlord.wildlife.states.CarcassState;
+import com.overlord.wildlife.states.WildState;
+
 public class Deer {
-    private String state;
-    private int remaingAmountOfFood;
+    private DeerState state;
+    private static final int DEFAULT_SIZE = 160;
 
     public Deer() {
-        this.state = "living";
-        this.remaingAmountOfFood = 100; // FIXME probably should be in the state
+        this(DEFAULT_SIZE);
     }
 
+    public Deer(int deerSize) {
+        state = new WildState(deerSize);
+    }
+
+    /**
+     * Shoots the deer, as the hunter is the best of the Middle-earth, one shot is enough
+     * transition the deer from wild to carcass state if alive
+     */
     public void shoot() {
-        // TODO if the deer is living, then change state to carcass
+        if (state.isAlive()) {
+            state = new CarcassState(state.getDeerSize());
+        }
     }
 
     public int collectFood() {
-        // TODO collect only when deer is in carcass state
-        // TODO swap to depleted state when there is no remaining food
-        int amountCollected = 25;
-        this.remaingAmountOfFood -= amountCollected;
-        return amountCollected;
+        if (!state.isCollectible()) {
+            return 0;
+        }
+
+        DeerState.CollectionResult result = state.collectFood(state.getDeerSize() / 4);
+        state = result.nextState();
+
+        return result.collectedAmount();
     }
 
-    // TODO implement the states of the Deer : living, carcass, depleted
+    public DeerState getState() {
+        return state;
+    }
+
+    public boolean isAlive() {
+        return state.isAlive();
+    }
+
+    public boolean isCollectible() {
+        return state.isCollectible();
+    }
 }
