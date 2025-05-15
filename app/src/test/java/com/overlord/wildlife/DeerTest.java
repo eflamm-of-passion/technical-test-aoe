@@ -4,9 +4,62 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class DeerTest {
+    @Test
+    void shoot_when_still_living() {
+        // given
+        Deer livingDeer = new Deer();
+
+        // when
+        livingDeer.shoot();
+
+        // then
+        assertFalse(livingDeer.isAlive());
+    }
 
     @Test
-    public void harvest_when_still_living() {
+    void isDeerCollectible_when_still_living() {
+        // given
+        Deer livingDeer = new Deer();
+
+        // when
+        boolean isCollectible = livingDeer.isCollectible();
+
+        // then
+        assertFalse(isCollectible);
+    }
+
+    @Test
+    void isDeerCollectible_when_carcass() {
+        // given
+        Deer carcassDeer = new Deer();
+        carcassDeer.shoot();
+
+        // when
+        boolean isCollectible = carcassDeer.isCollectible();
+
+        // then
+        assertTrue(isCollectible);
+    }
+
+    @Test
+    void isDeerCollectible_when_depleted() {
+        // given
+        Deer depletedDeer = new Deer();
+        depletedDeer.shoot();
+        depletedDeer.collectFood();
+        depletedDeer.collectFood();
+        depletedDeer.collectFood();
+        depletedDeer.collectFood();
+
+        // when
+        boolean isCollectible = depletedDeer.isCollectible();
+
+        // then
+        assertFalse(isCollectible);
+    }
+
+    @Test
+    void harvest_when_still_living() {
         // given
         Deer livingDeer = new Deer();
 
@@ -18,20 +71,21 @@ class DeerTest {
     }
 
     @Test
-    public void harvest_when_carcass() {
+    void harvest_when_carcass() {
         // given
         Deer carcassDeer = new Deer();
         carcassDeer.shoot();
 
         // when
         int amountOfFoodCollected = carcassDeer.collectFood();
+        int expectedAmountOfFoodCollected = carcassDeer.getState().getDeerSize() / 4;
 
         // then
-        assertEquals(25, amountOfFoodCollected);
+        assertEquals(expectedAmountOfFoodCollected, amountOfFoodCollected);
     }
 
     @Test
-    public void harvest_when_depleted() {
+    void harvest_when_depleted() {
         // given
         Deer depletedDeer = new Deer();
         depletedDeer.shoot();
@@ -46,5 +100,4 @@ class DeerTest {
         // then
         assertEquals(0, amountOfFoodCollected);
     }
-
 }
