@@ -1,15 +1,23 @@
 package com.overlord.combat;
 
-public class Commander {
+import java.util.Set;
 
-    public Unit sendUnitAgainst(Unit expectedEnemy) {
-        // TODO use the strategy to send the counter unit
-        chooseStrategyAgainst(expectedEnemy);
-        return new Pikeman(); // FIXME
+public class Commander {
+    Set<CombatStrategy> knownCombatStrategies;
+
+    public Commander(Set<CombatStrategy> knownCombatStrategies) {
+        this.knownCombatStrategies = knownCombatStrategies;
     }
 
-    private void chooseStrategyAgainst(Unit expectedEnemy) {
-        // TODO implement the three possible strategies using the strategy design pattern
-        // TODO you should return the proper strategy to send
+    public Unit sendUnitAgainst(Unit expectedEnemy) {
+        CombatStrategy bestStrategy = chooseStrategyAgainst(expectedEnemy);
+        return bestStrategy.sendUnit();
+    }
+
+    private CombatStrategy chooseStrategyAgainst(Unit expectedEnemy) {
+        return knownCombatStrategies.stream()
+                                    .filter(strategy -> strategy.isCounterOf(expectedEnemy))
+                                    .findFirst()
+                                    .orElseThrow(() -> new IllegalArgumentException("No strategy found against: " + expectedEnemy));
     }
 }
